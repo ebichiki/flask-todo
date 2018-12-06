@@ -1,0 +1,3 @@
+SQLALCHEMY_DATABASE_URI = 'sqlite:///todo.db'
+SECRET_KEY = 'secret key'
+SQLALCHEMY_TRACK_MODIFICATIONS = True

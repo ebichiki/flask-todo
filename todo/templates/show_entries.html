@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+    <input type=text size=20 name=text><input type=submit value=Add>
+</form>
+
+<div class="entries">
+    {% for entry in entries %}
+    <div class="row">
+        <div {% if entry.complated %} style="color: lightgray" {% endif %} class="column">{{ entry.text|safe }}</div>
+        <div class="column">{{ entry.updated_at |strftime}}</div>
+        <form action="{{url_for('upd_entry', id=entry.id)}}" method="post">
+            <div class="column"><input type=submit value=Done!></div>
+        </form>
+        <form action="{{url_for('del_entry', id=entry.id)}}" method="post">
+            <div class="column"><input type=submit value=Del></div>
+        </form>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="column"><em>Enter your first task.</em></div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
