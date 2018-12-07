@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
 <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
-    <input type=text size=20 name=text><input type=submit value=Add>
+    <input type=text placeholder="Write your task here..." size=20 name=text><input type=submit value=Add>
 </form>
 
 <div class="entries">
