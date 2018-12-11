@@ -4,16 +4,8 @@
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
-<header>
-    <p>Homework</p>
-    <nav>
-        <ul>
-            <li></li>
-        </ul>
-    </nav>
-</header>
 <div class=page>
-    <!-- <h1>Homework To Do List</h1> -->
+    <h1>Homework</h1>
     {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
     {% endfor %}

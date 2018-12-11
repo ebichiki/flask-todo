@@ -1,11 +1,19 @@
 from flask import request, redirect, url_for, render_template, flash
 from todo import app, db
 from todo.models import Entry
+from datetime import datetime
+
+starttime = datetime.now()
+status = ["Start","Done!","Clear"]
 
 @app.template_filter('strftime')
-def _jinja2_filter_datetime(date, fmt=None):
-    format="%M:%S"
-    return date.strftime(format) 
+def _jinja2_filter_datetime(entry):
+    delta = entry.updated_at - entry.created_at
+    return str(delta).split(".")[0]
+    
+@app.template_filter('btnnm')
+def _jinja2_filter_datetime(arg):
+    return status[arg]
 
 @app.route('/')
 def show_entries():
@@ -16,7 +24,7 @@ def show_entries():
 def add_entry():
     entry = Entry(
             text=request.form['text'],
-            complated=False
+            completed=0
             )
     db.session.add(entry)
     db.session.commit()
@@ -25,12 +33,19 @@ def add_entry():
 
 @app.route('/update/<int:id>', methods=['POST'])
 def upd_entry(id):
+    #global starttime
     entry = Entry.query.get(id)
-    if entry.complated == True:
-        entry.complated = False
+    if entry.completed == 0:
+        entry.created_at = datetime.now()
+        entry.completed = 1
+        flash('Start!')
+    elif entry.completed == 1:
+        entry.updated_at = datetime.now()
+        entry.completed = 2
+        flash('Done!')
     else:
-        entry.complated = True
-    flash('Done!')
+        print(2)
+        entry.completed = 0
     db.session.add(entry)
     db.session.commit()
     return redirect(url_for('show_entries'))

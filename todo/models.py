@@ -7,8 +7,10 @@ class Entry(db.Model):
     __tablename__ = 'entries'
     id = db.Column(Integer, primary_key=True)
     text = db.Column(Text)
-    complated = db.Column(Boolean)
-    updated_at = db.Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    completed = db.Column(Integer,default=0)
+    created_at = db.Column(DateTime, default=datetime.now())
+    updated_at = db.Column(DateTime, default=datetime.now())
+    elaps = ""
 
     def __repr__(self):
         return "<Entry id{} = text={!r}>".format(self.id,self.text)
