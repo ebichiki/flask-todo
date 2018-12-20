@@ -1,27 +1,32 @@
 {% extends "layout.html" %}
 {% block body %}
-<form action="{{ url_for('add_entry') }}" method=post class=add-entry>
-    <input type=text placeholder="Write your task here..." size=20 name=text><input type=submit value=Add>
-</form>
 
-<table class="entries">
-    <tbody>
-        {% for entry in entries %}
-        <tr>
-            <td width=50% {% if entry.completed==2 %} style="color: lightgray" {% endif %}>{{ entry.text|safe }}</td>
-            <td width=10% {% if entry.completed==2 %}>{{ entry |strftime }}{% endif %}</td>
-            <form action="{{url_for('upd_entry', id=entry.id)}}" method="post">
-                <td><input type=submit value={{ entry.completed | btnnm}}></td>
-            </form>
-            <form action="{{url_for('del_entry', id=entry.id)}}" method="post">
-                <td class="e"><input type=submit value=Del></td>
-            </form>
-        </tr>
-        {% else %}
-        <tr>
-            <td><em>Enter your first task.</em></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    {% if session.user_id %}
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+        <input type=text placeholder="Write your task here..." size=20 name=text><input type=submit value=Add>
+    </form>
+    {% endif %}
+
+    <table class="entries">
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td width=40% {% if entry.completed==2 %} style="color: lightgray" {% endif %}>{{ entry.text|safe }}</td>
+                <td width=15% {% if entry.completed==2 %}>{{ entry |strftime }}{% endif %}</td>
+                <form action="{{url_for('upd_entry', id=entry.id)}}" method="post">
+                    <td><input type=submit value={{ entry.completed | btnnm}}></td>
+                </form>
+                {% if session.user_id %}
+                <form action="{{url_for('del_entry', id=entry.id)}}" method="post">
+                    <td class="e"><input type=submit value=Del></td>
+                </form>
+                {% endif %}
+            </tr>
+            {% else %}
+            <tr>
+                <td><em>Enter your first task.</em></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
