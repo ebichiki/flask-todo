@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import request, redirect, url_for, render_template, flash, abort, jsonify#, session, g
+from flask import request, redirect, url_for, render_template, flash, abort, jsonify, session, g
 from todo import app, db
 from todo.models import Entry, User
 from datetime import datetime
