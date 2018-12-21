@@ -5,4 +5,4 @@ Werkzeug==0.14.1
 gunicorn==19.9.0
 Flask-Script==2.0.6
 psycopg2==2.7.5
-
+alembic==1.0.5
