@@ -8,11 +8,11 @@
 </div>
 
 <div>
-    <a href="{{ url_for('user_edit', user_id=user.id) }}">edit</a></li>
-    <a class="user-delete-link" href="#" data-delete-url="{{ url_for('user_delete', user_id=user.id) }}">delete</a></li>
+    <a href="{{ url_for('user_edit', user_id=user.id) }}">edit</a>
+    <a class="user-delete-link" href="#" data-delete-url="{{ url_for('user_delete', user_id=user.id) }}">delete</a>
 </div>
 
-<script src="http://code.jquery.com/jquery-1.9.1.min.js><script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
     $(function() {
         $(".user-delete-link").on("click", function() {
@@ -22,13 +22,13 @@
                 type: 'DELETE',
                 success: function(response) {
                     if (response.status == 'OK') {
-                        window.location = '{{ url_for('user_list') }};
+                        window.location = '{{ url_for('user_list') }}';
                     } else {
-                      alert('Delete failed.')
+                        alert('Delete failed.')
                     }
                 }
             });
-        return false;
+            return false;
         });
     });
 </script>
